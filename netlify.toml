@@ -1,0 +1,22 @@
+# ══ Identificate — Netlify config ══
+
+[build]
+  publish = "."
+
+# Cache de imágenes: 1 mes
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, immutable"
+
+# HTML: siempre fresco
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# 404 explícita (aunque 404.html en raíz ya alcanza)
+[[redirects]]
+  from   = "/*"
+  to     = "/404.html"
+  status = 404
