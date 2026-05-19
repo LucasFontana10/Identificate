@@ -17,11 +17,12 @@
 
 # ── MODO MANTENIMIENTO ──────────────────────────────────────────
 # Passthrough para assets estáticos — va ANTES del catch-all.
-# Sin esto, force=true en la regla de abajo bloquea las imágenes.
+# force=true acá también para tener precedencia sobre el force del catch-all.
 [[redirects]]
-  from = "/img/*"
-  to   = "/img/:splat"
+  from  = "/img/*"
+  to    = "/img/:splat"
   status = 200
+  force  = true
 
 # Redirige todo el tráfico a working.html mientras el sitio está en construcción.
 # Cuando el sitio esté listo: reemplazar este bloque por el de PRODUCCIÓN de abajo.
