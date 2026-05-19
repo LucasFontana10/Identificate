@@ -16,24 +16,31 @@
     Cache-Control = "public, max-age=0, must-revalidate"
 
 # ── MODO MANTENIMIENTO ──────────────────────────────────────────
-# Passthrough para assets estáticos — va ANTES del catch-all.
-# force=true acá también para tener precedencia sobre el force del catch-all.
+# Solo redirige rutas HTML — los assets (img, etc.) se sirven normalmente.
+# Así evitamos el conflicto de múltiples force=true compitiendo.
+
+# Raíz del sitio
 [[redirects]]
-  from  = "/img/*"
-  to    = "/img/:splat"
+  from   = "/"
+  to     = "/working.html"
   status = 200
   force  = true
 
-# Redirige todo el tráfico a working.html mientras el sitio está en construcción.
-# Cuando el sitio esté listo: reemplazar este bloque por el de PRODUCCIÓN de abajo.
+# Cualquier ruta con extensión .html (turnera.html, index.html, etc.)
+[[redirects]]
+  from   = "/*.html"
+  to     = "/working.html"
+  status = 200
+  force  = true
+
+# Rutas sin extensión (por si usan URLs limpias)
 [[redirects]]
   from   = "/*"
   to     = "/working.html"
-  status = 200        # 200 = rewrite silencioso (URL no cambia)
-  force  = true       # fuerza incluso sobre archivos existentes
+  status = 200
 
 # ── PRODUCCIÓN (activar cuando esté listo) ──────────────────────
-# Eliminar el bloque MANTENIMIENTO de arriba y descomentar esto:
+# Borrar los 3 bloques de arriba y descomentar esto:
 # [[redirects]]
 #   from   = "/*"
 #   to     = "/404.html"
