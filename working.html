@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mantenimiento · Volvemos en un toque — Identificate</title>
 <meta name="description" content="Estamos puliendo la identidad. Identificate — diseño, web y herramientas digitales para negocios de Buenos Aires.">
-<link rel="icon" type="image/png" href="img/logo.png?v=1">
+<link rel="icon" type="image/png" href="img/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -84,7 +84,7 @@
   }
   .nav-back:hover{color:var(--lila)}
 
-  /* logo fallback (in case img/logo.png?v=1 isn't there) */
+  /* logo fallback (in case img/logo.png isn't there) */
   .logo-fallback{
     background:radial-gradient(circle at 30% 30%,var(--lila-soft),var(--lila-deep) 75%);
     display:flex;align-items:center;justify-content:center;
@@ -607,7 +607,7 @@
 <!-- ══ NAV ══ -->
 <nav id="nav">
   <a href="index.html" class="nav-logo" data-magnetic>
-    <img src="img/logo.png?v=1" alt="Identificate" onerror="this.outerHTML='&lt;span class=&quot;logo-fallback&quot;&gt;&lt;/span&gt;'">
+    <img src="img/logo.png" alt="Identificate" onerror="this.outerHTML='&lt;span class=&quot;logo-fallback&quot;&gt;&lt;/span&gt;'">
     <span>IDENTIFICATE</span>
   </a>
   <a href="#notify" class="nav-back" data-magnetic>↓ Avisame por email</a>
@@ -821,7 +821,7 @@
             <div class="coin-layer"><span class="coin-mark"></span></div>
             <div class="coin-layer"><span class="coin-mark"></span></div>
             <div class="coin-layer"><span class="coin-mark"></span></div>
-            <div class="coin-layer coin-top"><img src="img/logo.png?v=1" alt="" onerror="this.outerHTML='&lt;span class=&quot;coin-mark&quot;&gt;&lt;/span&gt;'"></div>
+            <div class="coin-layer coin-top"><img src="img/logo.png" alt="" onerror="this.outerHTML='&lt;span class=&quot;coin-mark&quot;&gt;&lt;/span&gt;'"></div>
           </div>
           <div class="coin-shine"></div>
         </div>
@@ -922,7 +922,7 @@
 <footer>
   <div class="container">
     <a href="index.html" class="foot-logo">
-      <img src="img/logo.png?v=1" alt="Identificate" onerror="this.outerHTML='&lt;span class=&quot;logo-fallback&quot;&gt;&lt;/span&gt;'">
+      <img src="img/logo.png" alt="Identificate" onerror="this.outerHTML='&lt;span class=&quot;logo-fallback&quot;&gt;&lt;/span&gt;'">
       <span>IDENTIFICATE</span>
     </a>
     <p class="foot-copy">© 2026 Identificate · Volvemos a estar online en un toque.</p>
@@ -1170,7 +1170,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 
   // logo image used inside the coin (optional)
   const logoImg = new Image();
-  logoImg.src = 'img/logo.png?v=1';
+  logoImg.src = 'img/logo.png';
 
   function rr(x,y,w,h,r){
     r = Math.min(r, w/2, h/2);
