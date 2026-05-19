@@ -16,15 +16,16 @@
     Cache-Control = "public, max-age=0, must-revalidate"
 
 # ── MODO MANTENIMIENTO ──────────────────────────────────────────
-# Muestra 404.html en todas las URLs mientras se prepara el sitio.
-# Cuando el sitio esté listo: borrar este bloque y dejar solo el de abajo.
+# Redirige todo el tráfico a working.html mientras el sitio está en construcción.
+# Cuando el sitio esté listo: reemplazar este bloque por el de PRODUCCIÓN de abajo.
 [[redirects]]
   from   = "/*"
-  to     = "/404.html"
+  to     = "/working.html"
   status = 200        # 200 = rewrite silencioso (URL no cambia)
   force  = true       # fuerza incluso sobre archivos existentes
 
 # ── PRODUCCIÓN (activar cuando esté listo) ──────────────────────
+# Eliminar el bloque MANTENIMIENTO de arriba y descomentar esto:
 # [[redirects]]
 #   from   = "/*"
 #   to     = "/404.html"
