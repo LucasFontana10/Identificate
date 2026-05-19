@@ -15,8 +15,17 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# 404 explícita (aunque 404.html en raíz ya alcanza)
+# ── MODO MANTENIMIENTO ──────────────────────────────────────────
+# Muestra 404.html en todas las URLs mientras se prepara el sitio.
+# Cuando el sitio esté listo: borrar este bloque y dejar solo el de abajo.
 [[redirects]]
   from   = "/*"
   to     = "/404.html"
-  status = 404
+  status = 200        # 200 = rewrite silencioso (URL no cambia)
+  force  = true       # fuerza incluso sobre archivos existentes
+
+# ── PRODUCCIÓN (activar cuando esté listo) ──────────────────────
+# [[redirects]]
+#   from   = "/*"
+#   to     = "/404.html"
+#   status = 404
