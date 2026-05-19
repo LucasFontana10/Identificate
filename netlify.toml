@@ -16,6 +16,13 @@
     Cache-Control = "public, max-age=0, must-revalidate"
 
 # ── MODO MANTENIMIENTO ──────────────────────────────────────────
+# Passthrough para assets estáticos — va ANTES del catch-all.
+# Sin esto, force=true en la regla de abajo bloquea las imágenes.
+[[redirects]]
+  from = "/img/*"
+  to   = "/img/:splat"
+  status = 200
+
 # Redirige todo el tráfico a working.html mientras el sitio está en construcción.
 # Cuando el sitio esté listo: reemplazar este bloque por el de PRODUCCIÓN de abajo.
 [[redirects]]
