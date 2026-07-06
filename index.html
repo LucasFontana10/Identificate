@@ -43,6 +43,7 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
 .h2{font-family:var(--ft);font-weight:800;font-size:clamp(2rem,4.2vw,3.1rem);line-height:1.12;letter-spacing:-.025em;margin:1.2rem 0 1rem}
 .h2 .grad,.grad{background:linear-gradient(110deg,var(--lila) 10%,var(--lila-soft) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .sub{font-size:1.04rem;color:var(--grey);max-width:620px;line-height:1.75}
+.head-center .sub{text-align:center}
 
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease}
 .reveal.in{opacity:1;transform:none}
@@ -179,11 +180,7 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
 .hstat{text-align:center}
 .hstat strong{display:block;font-family:var(--ft);font-weight:900;font-size:1.8rem;color:var(--lila);line-height:1}
 .hstat span{font-size:.78rem;color:var(--grey);font-weight:500;margin-top:.25rem;display:block}
-.scroll-cue{
-  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
-  z-index:2;font-family:var(--ft);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--grey);
-  display:flex;flex-direction:column;align-items:center;gap:.55rem;
-}
+.scroll-cue{display:none}
 .scroll-cue .line{width:1px;height:44px;background:linear-gradient(var(--lila),transparent)}
 
 /* ═══ MARQUEE ═══ */
@@ -231,7 +228,7 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
 .pillar .ico{
   width:56px;height:56px;border-radius:15px;
   background:var(--lila-dim);border:1px solid var(--lila-dim);
-  display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.4rem;
+  display:flex;align-items:center;justify-content:center;color:var(--lila);margin-bottom:1.4rem;
 }
 .pillar h3{font-family:var(--ft);font-weight:700;font-size:1.15rem;margin-bottom:.55rem}
 .pillar p{color:var(--grey);font-size:.9rem;line-height:1.65}
@@ -270,10 +267,11 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
   border-radius:18px;overflow:hidden;border:1px solid var(--lila-dim);
   background:var(--dark-3);
   transition:transform var(--t),border-color var(--t),box-shadow var(--t);
+  display:block;color:inherit;text-decoration:none;cursor:pointer;
 }
 .web-card:hover{transform:translateY(-10px);border-color:var(--lila);box-shadow:0 26px 60px rgba(179,136,255,.2)}
-.web-card-img{overflow:hidden;border-bottom:1px solid var(--lila-dim)}
-.web-card-img img{width:100%;display:block;transition:transform .55s ease}
+.web-card-img{overflow:hidden;border-bottom:1px solid var(--lila-dim);aspect-ratio:2/3}
+.web-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s ease}
 .web-card:hover .web-card-img img{transform:scale(1.06)}
 .web-card-body{padding:1.3rem 1.4rem 1.6rem}
 .web-card-body .tag{font-family:var(--ft);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lila)}
@@ -296,8 +294,10 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
 .brand-hero-caption{
   position:absolute;bottom:2rem;left:2.5rem;right:2.5rem;z-index:2;
   font-family:var(--ft);font-weight:700;font-size:1.05rem;letter-spacing:.02em;
+  text-shadow:0 1px 4px rgba(0,0,0,1),0 2px 12px rgba(0,0,0,.9);
+  -webkit-text-stroke:.4px rgba(0,0,0,.6);paint-order:stroke fill;
 }
-.brand-hero-caption span{font-size:.75rem;color:var(--lila);font-weight:600;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.3rem}
+.brand-hero-caption span{font-size:.75rem;color:var(--lila);font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.3rem;text-shadow:0 1px 4px rgba(0,0,0,1);-webkit-text-stroke:0px}
 .brand-duo{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
 .brand-duo figure{
   border-radius:18px;overflow:hidden;border:1px solid var(--lila-dim);
@@ -309,6 +309,154 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
   padding:2rem 1.4rem 1rem;background:linear-gradient(transparent,rgba(15,15,23,.92));
   font-family:var(--ft);font-weight:700;font-size:.85rem;letter-spacing:.03em;
 }
+/* ═══ BRAND STACK CAROUSEL ═══ */
+.brand-stack-scene{position:relative}
+/* Brand section top grid */
+.brand-top-grid{
+  display:grid;grid-template-columns:1fr 1.2fr;
+  gap:3.5rem;align-items:center;margin-bottom:3rem;
+}
+@media(max-width:960px){
+  .brand-top-grid{grid-template-columns:1fr;gap:2.5rem}
+}
+
+.brand-stack-wrap{
+  position:relative;aspect-ratio:4/3;
+  margin-right:13%;margin-bottom:5%;
+}
+.brand-stack-card{
+  position:absolute;inset:0;
+  border-radius:22px;overflow:hidden;
+  border:1px solid var(--lila-dim);
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .65s cubic-bezier(.4,0,.2,1),filter .65s ease,box-shadow .65s ease;
+  will-change:transform,filter;
+}
+.brand-stack-card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
+.bsc-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,10,16,.88) 0%,rgba(10,10,16,.18) 55%,transparent 100%);
+  padding:1.4rem 1.5rem;display:flex;flex-direction:column;justify-content:flex-end;
+  opacity:0;transition:opacity .3s ease;
+}
+.brand-stack-card[data-pos="0"] .bsc-overlay{opacity:1}
+.bsc-label{font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lila);display:block;margin-bottom:.28rem}
+.bsc-name{font-family:var(--ft);font-weight:800;font-size:.98rem;color:var(--white);line-height:1.2}
+
+.brand-stack-card[data-pos="0"]{
+  z-index:3;
+  transform:translate(0,0) scale(1) rotate(0deg);
+  box-shadow:0 32px 90px rgba(0,0,0,.7),0 0 0 1px rgba(179,136,255,.3);
+  filter:brightness(1) saturate(1);
+}
+.brand-stack-card[data-pos="1"]{
+  z-index:2;
+  transform:translate(9%,4%) scale(0.92) rotate(2.5deg);
+  box-shadow:0 18px 55px rgba(0,0,0,.55);
+  filter:brightness(0.68) saturate(0.7);
+}
+.brand-stack-card[data-pos="2"]{
+  z-index:1;
+  transform:translate(18%,8%) scale(0.84) rotate(5deg);
+  box-shadow:0 10px 35px rgba(0,0,0,.45);
+  filter:brightness(0.42) saturate(0.45);
+}
+@keyframes bscIn{
+  from{transform:translate(30%,-4%) scale(0.82) rotate(7deg);opacity:.4}
+  to{transform:translate(0,0) scale(1) rotate(0deg);opacity:1}
+}
+.brand-stack-card.bsc-entering[data-pos="0"]{
+  animation:bscIn .65s cubic-bezier(.4,0,.2,1) both;
+}
+.brand-stack-card[data-pos="0"]:hover{
+  box-shadow:0 40px 110px rgba(179,136,255,.22),0 0 0 1px rgba(179,136,255,.45);
+}
+
+/* Mobile stack */
+@media(max-width:600px){
+  .brand-stack-wrap{margin-right:10%;margin-bottom:4%}
+  .brand-stack-card[data-pos="1"]{transform:translate(7%,3%) scale(0.93) rotate(2deg)}
+  .brand-stack-card[data-pos="2"]{transform:translate(14%,6%) scale(0.86) rotate(4deg)}
+  .bsc-name{font-size:.88rem}
+}
+
+/* click-hint ring */
+.brand-stack-card[data-pos="0"]::after{
+  content:'';position:absolute;inset:-1px;border-radius:22px;
+  border:1px solid rgba(179,136,255,.0);transition:border-color .3s ease;pointer-events:none;
+}
+.brand-stack-card[data-pos="0"]:hover::after{border-color:rgba(179,136,255,.4)}
+
+/* dots */
+.bsc-dots{display:flex;gap:.45rem;justify-content:flex-start;margin-top:1rem;padding-left:.2rem}
+.bsc-dot{height:6px;border-radius:3px;background:var(--grey-dim);border:1px solid var(--lila-dim);
+  transition:background var(--t),width var(--t);cursor:pointer;width:6px}
+.bsc-dot.active{background:var(--lila);width:22px}
+
+/* click hint label */
+.bsc-hint{
+  position:absolute;bottom:-1.8rem;right:0;
+  font-family:var(--ft);font-size:.58rem;font-weight:600;letter-spacing:.06em;
+  color:var(--grey);display:flex;align-items:center;gap:.35rem;
+}
+.bsc-hint svg{opacity:.6}
+
+/* ═══ BRAND MANUAL (separado) ═══ */
+.brand-manual{
+  margin-top:2.2rem;
+  border:1px solid var(--lila-dim);border-radius:18px;
+  background:linear-gradient(135deg,rgba(179,136,255,.05),rgba(255,255,255,.012) 70%);
+  padding:1.3rem 1.6rem;
+  display:flex;align-items:center;gap:2rem;flex-wrap:wrap;
+}
+.bm-left{flex-shrink:0;min-width:170px}
+.bm-eyebrow{display:flex;align-items:center;gap:.4rem;font-family:var(--ft);font-size:.56rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--lila);margin-bottom:.5rem}
+.bm-eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--lila);animation:pulse 2.4s ease-in-out infinite;flex-shrink:0}
+.bm-title{font-family:var(--ft);font-weight:800;font-size:.9rem;letter-spacing:-.005em;line-height:1.3;color:var(--white)}
+.bm-divider{width:1px;height:44px;background:linear-gradient(transparent,var(--lila-dim),transparent);flex-shrink:0}
+.bm-items{display:flex;flex-wrap:wrap;gap:.38rem;flex:1;min-width:0}
+.bm-items span{
+  font-family:var(--ft);font-size:.62rem;font-weight:600;letter-spacing:.02em;
+  color:var(--grey-soft);background:rgba(179,136,255,.07);
+  border:1px solid rgba(179,136,255,.12);border-radius:100px;
+  padding:.28rem .72rem;transition:border-color var(--t),color var(--t),background var(--t);cursor:default;
+}
+.bm-items span:hover{border-color:var(--lila);color:var(--white);background:rgba(179,136,255,.15)}
+@media(max-width:900px){.bm-divider{display:none}.brand-manual{gap:1rem;padding:1.2rem 1.4rem}}
+@media(max-width:600px){.brand-manual{flex-direction:column;align-items:flex-start}}
+
+/* ═══ BRAND TRIO ═══ */
+.brand-trio{display:grid;grid-template-columns:1.3fr 0.85fr 1fr;gap:1.4rem;margin-top:2.5rem}
+.brand-window{
+  position:relative;border-radius:22px;overflow:hidden;
+  border:1px solid var(--lila-dim);background:var(--dark-3);
+  transition:transform var(--t),border-color var(--t),box-shadow var(--t);cursor:pointer;
+}
+.brand-window:hover{transform:translateY(-8px);border-color:var(--lila);box-shadow:0 24px 60px rgba(179,136,255,.18)}
+.brand-window:nth-child(1){aspect-ratio:4/5}
+.brand-window:nth-child(2){aspect-ratio:1/1}
+.brand-window:nth-child(3){aspect-ratio:3/4}
+.brand-window img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.brand-window:hover img{transform:scale(1.04)}
+.brand-window-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,10,16,.92) 0%,rgba(10,10,16,.3) 55%,transparent 100%);
+  pointer-events:none;
+}
+.brand-window-caption{position:absolute;bottom:1.4rem;left:1.5rem;right:1.5rem;z-index:2}
+.bwc-label{font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lila);display:block;margin-bottom:.28rem}
+.bwc-name{font-family:var(--ft);font-weight:800;font-size:.98rem;color:var(--white);line-height:1.2;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.brand-window-placeholder{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;
+  color:var(--grey);font-family:var(--ft);font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+}
+.brand-window-placeholder svg{opacity:.35}
+@media(max-width:900px){.brand-trio{grid-template-columns:1fr 1fr;gap:1rem}}
+@media(max-width:900px){.brand-window:nth-child(3){display:none}}
+@media(max-width:600px){.brand-trio{grid-template-columns:1fr}.brand-window:nth-child(3){display:block}.brand-window{aspect-ratio:4/3!important}}
+
 .brand-chips{display:flex;flex-wrap:wrap;gap:.7rem}
 .brand-chips span{
   font-size:.82rem;color:var(--grey-soft);border:1px solid var(--lila-dim);
@@ -341,7 +489,7 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
 .badge-dev .d{width:5px;height:5px;border-radius:50%;background:var(--lila);animation:pulse 2.2s ease-in-out infinite}
 .tool .t-ico{
   width:60px;height:60px;border-radius:16px;background:var(--lila-dim);border:1px solid var(--lila-dim);
-  display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:1.3rem;
+  display:flex;align-items:center;justify-content:center;color:var(--lila);margin-bottom:1.3rem;
 }
 .tool h3{font-family:var(--ft);font-weight:800;font-size:1.22rem;letter-spacing:-.01em;margin-bottom:.45rem}
 .tool .pitch{color:var(--grey);font-size:.9rem;line-height:1.65;margin-bottom:1.3rem}
@@ -372,7 +520,7 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
   transition:background var(--t),color var(--t),box-shadow var(--t);
 }
 .tstep:hover .tnum{background:var(--lila);color:var(--dark);box-shadow:0 0 30px var(--lila-glow)}
-.tnum .emj{position:absolute;bottom:-9px;right:-7px;width:24px;height:24px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.tnum .emj{position:absolute;bottom:-9px;right:-7px;width:24px;height:24px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center;color:var(--lila);border:1px solid var(--lila-dim)}
 .tstep h3{font-family:var(--ft);font-weight:700;font-size:.93rem;margin-bottom:.4rem}
 .tstep p{font-size:.82rem;color:var(--grey);line-height:1.55;max-width:170px}
 
@@ -427,7 +575,7 @@ button{font-family:inherit;cursor:pointer} ::selection{background:var(--lila);co
   transition:transform var(--t),border-color var(--t),background var(--t);
 }
 .channel:hover{transform:translateX(6px);border-color:var(--lila);background:rgba(179,136,255,.12)}
-.channel .ci{width:50px;height:50px;border-radius:13px;flex-shrink:0;background:var(--lila-dim);display:flex;align-items:center;justify-content:center;font-size:1.45rem}
+.channel .ci{width:50px;height:50px;border-radius:13px;flex-shrink:0;background:var(--lila-dim);display:flex;align-items:center;justify-content:center;color:var(--lila)}
 .channel h4{font-family:var(--ft);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lila);margin-bottom:.15rem}
 .channel p{font-size:.93rem}
 
@@ -522,6 +670,159 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
   .hero-badge{width:100px;height:100px}
   .hero h1{font-size:2.4rem}
 }
+
+/* ═══ HERO FLOATING CARDS ═══ */
+.hero-float{
+  position:absolute;top:50%;z-index:3;
+  background:rgba(20,20,31,.72);border:1px solid var(--lila-dim);
+  border-radius:18px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  padding:1.1rem 1.4rem;min-width:190px;pointer-events:none;
+}
+.hero-float.hfl{left:2%;transform:translateY(-80%);animation:float 9s ease-in-out infinite .4s}
+.hero-float.hfr{right:2%;transform:translateY(-20%);animation:float 11s ease-in-out infinite 1.8s}
+.hero-float-tag{
+  font-family:var(--ft);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--lila);display:flex;align-items:center;gap:.4rem;margin-bottom:.6rem;
+}
+.hero-float-tag .hft-dot{width:5px;height:5px;border-radius:50%;background:var(--lila);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+.hero-float-title{font-family:var(--ft);font-weight:700;font-size:.92rem;color:var(--white);margin-bottom:.18rem;line-height:1.2}
+.hero-float-sub{font-size:.74rem;color:var(--grey);line-height:1.4}
+.hero-float-bar{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--lila),var(--lila-soft));margin-top:.85rem;border-radius:100px;opacity:.7}
+@media(max-width:1280px){.hero-float{display:none}}
+
+/* ═══ PORTFOLIO / CASES ═══ */
+#portfolio{background:var(--dark-3)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.8rem;margin-top:3rem}
+/* Fondos CSS para cards sin imagen */
+.pcase-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pcase-bg-audit{background:linear-gradient(135deg,#08080f 0%,#111129 50%,rgba(179,136,255,.1) 100%)}
+.pcase-bg-audit::after{content:'';position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(179,136,255,.18),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.pcase-bg-soon{background:linear-gradient(145deg,#060610 0%,#0e0e22 55%,rgba(139,92,246,.12) 100%)}
+.pcase-bg-soon::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(109,40,217,.2),transparent 65%);top:50%;left:55%;transform:translate(-50%,-50%)}
+.pcase-coming-badge{
+  position:absolute;top:1.1rem;left:1.2rem;z-index:4;
+  font-family:var(--ft);font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--lila);background:rgba(179,136,255,.13);border:1px solid var(--lila-dim);
+  border-radius:100px;padding:.3rem .72rem;display:flex;align-items:center;gap:.35rem;
+}
+.pcase-coming-badge .d{width:5px;height:5px;border-radius:50%;background:var(--lila);animation:pulse 2.2s ease-in-out infinite}
+.pcase{
+  position:relative;border-radius:24px;overflow:hidden;
+  border:1px solid var(--lila-dim);cursor:pointer;display:block;color:inherit;
+  transition:transform var(--t),border-color var(--t),box-shadow var(--t);
+}
+.pcase:hover{transform:translateY(-10px);border-color:var(--lila);box-shadow:0 30px 70px rgba(179,136,255,.22)}
+.pcase-img{position:relative;overflow:hidden;aspect-ratio:16/9}
+.pcase-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.pcase:hover .pcase-img img{transform:scale(1.06)}
+.pcase-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,10,16,.96) 0%,rgba(10,10,16,.4) 48%,transparent 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;
+  transition:background var(--t);
+}
+.pcase:hover .pcase-overlay{background:linear-gradient(to top,rgba(10,10,16,.98) 0%,rgba(10,10,16,.6) 55%,rgba(139,92,246,.08) 100%)}
+.pcase-tag{font-family:var(--ft);font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--lila);margin-bottom:.5rem}
+.pcase-title{font-family:var(--ft);font-weight:800;font-size:1.3rem;line-height:1.2;margin-bottom:.5rem}
+.pcase-desc{color:var(--grey);font-size:.88rem;line-height:1.6}
+.pcase-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--ft);font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--lila);margin-top:.9rem;opacity:0;transform:translateY(8px);
+  transition:opacity var(--t),transform var(--t);
+}
+.pcase:hover .pcase-link{opacity:1;transform:none}
+
+/* ═══ EQUIPO ═══ */
+#equipo{background:var(--dark)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:3.5rem}
+.member{
+  background:var(--card);border:1px solid var(--grey-dim);
+  border-radius:24px;padding:2.4rem 1.8rem;text-align:center;
+  transition:transform var(--t),border-color var(--t),background var(--t);position:relative;overflow:hidden;
+}
+.member::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--lila),transparent);opacity:0;transition:opacity var(--t)}
+.member:hover{transform:translateY(-8px);border-color:var(--lila);background:var(--card-hover)}
+.member:hover::before{opacity:1}
+.member-avatar{
+  width:90px;height:90px;border-radius:50%;margin:0 auto 1.4rem;
+  background:linear-gradient(135deg,var(--lila-deep),var(--lila));
+  border:2px solid var(--lila-dim);display:flex;align-items:center;justify-content:center;
+  font-family:var(--ft);font-weight:900;font-size:1.35rem;color:var(--dark);letter-spacing:.02em;
+  transition:border-color var(--t),box-shadow var(--t);overflow:hidden;
+}
+.member-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.member:hover .member-avatar{border-color:var(--lila);box-shadow:0 0 28px var(--lila-glow)}
+.member h3{font-family:var(--ft);font-weight:800;font-size:1.12rem;margin-bottom:.22rem}
+.member-role{font-size:.72rem;color:var(--lila);font-family:var(--ft);font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.85rem;display:block}
+.member p{color:var(--grey);font-size:.88rem;line-height:1.65}
+
+/* ═══ TESTIMONIOS ═══ */
+#testimonios{background:var(--dark-2)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.testi{
+  background:rgba(255,255,255,.028);backdrop-filter:blur(24px);
+  border:1px solid rgba(179,136,255,.13);border-radius:22px;padding:2.2rem;
+  position:relative;overflow:hidden;
+  transition:transform var(--t),border-color var(--t),box-shadow var(--t);
+}
+.testi::before{content:'"';position:absolute;top:.5rem;right:1.4rem;font-size:5.5rem;color:var(--lila);opacity:.08;font-family:Georgia,serif;line-height:1;pointer-events:none}
+.testi:hover{transform:translateY(-6px);border-color:rgba(179,136,255,.35);box-shadow:0 20px 50px rgba(179,136,255,.14)}
+.testi p{color:var(--grey-soft);font-size:.93rem;line-height:1.78;margin-bottom:1.5rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:.9rem}
+.testi-avatar{width:46px;height:46px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--lila-deep),var(--lila));display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-weight:700;font-size:.82rem;color:var(--dark);letter-spacing:.04em}
+.testi-info strong{display:block;font-family:var(--ft);font-weight:700;font-size:.92rem}
+.testi-info span{font-size:.76rem;color:var(--lila)}
+
+/* ═══ PILLAR IMAGE CARDS ═══ */
+.pillar-img-card{
+  padding:0!important;
+  aspect-ratio:2/3;
+  cursor:pointer;
+}
+.pillar-img-card img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center center;
+  display:block;
+  transition:transform .7s cubic-bezier(.4,0,.2,1);
+}
+.pillar-img-card:hover{
+  box-shadow:0 28px 65px rgba(179,136,255,.28)!important;
+  border-color:var(--lila)!important;
+}
+.pillar-img-card:hover img{transform:scale(1.1)}
+.pillar-link{position:absolute;inset:0;z-index:2;border-radius:22px}
+
+/* ═══ NOISE TEXTURE ═══ */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.028;mix-blend-mode:overlay;
+}
+
+/* ═══ CURSOR INTERACTIVO ═══ */
+.pillar,.tool,.why-card,.plan,.stat-box,.testi,.member,.web-card,.pcase{cursor:pointer}
+
+/* ═══ CURSOR GLOW ═══ */
+.cursor-glow{
+  position:fixed;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(179,136,255,.055) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+  left:0;top:0;transform:translate(-50%,-50%);will-change:left,top;
+}
+
+/* ═══ RESPONSIVE NUEVAS SECCIONES ═══ */
+@media(max-width:1100px){
+  .portfolio-grid{grid-template-columns:1fr 1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .testi-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .portfolio-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .pcase-link{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
@@ -548,9 +849,9 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#servicios">Servicios</a>
-  <a href="#web">Web</a>
-  <a href="#branding">Branding</a>
+  <a href="#portfolio">Portfolio</a>
   <a href="#herramientas">Herramientas</a>
+  <a href="#equipo">Equipo</a>
   <a href="#planes">Planes</a>
   <a href="#contacto">Contacto</a>
   <a href="#contacto" class="btn btn-primary" style="margin-top:.5rem">Empezá tu proyecto</a>
@@ -578,11 +879,11 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
       <img src="img/logo.png" alt="Identificate" class="hero-badge">
       <div class="hero-logo-ring"></div>
     </div>
-    <div><span class="eyebrow hero-eyebrow"><span class="dot"></span>Diseño · Web · Herramientas digitales · Buenos Aires</span></div>
-    <h1>Tu marca tiene que<br><span class="grad">verse como lo que vale.</span></h1>
+    <div><span class="eyebrow hero-eyebrow"><span class="dot"></span>Diseño real · Web que convierte · Software propio · Buenos Aires</span></div>
+    <h1>Otras agencias te venden aire.<br><span class="grad">Nosotros te entregamos una marca que vende.</span></h1>
     <p class="lead">
-      Identidad visual, sitios web y herramientas digitales propias para negocios que arrancan
-      y para profesionales que quieren crecer — todo en un solo lugar.
+      Somos Identificate — identidad visual, webs que convierten y herramientas digitales
+      para negocios que van en serio. Sin plantillas. Sin excusas. Buenos Aires.
     </p>
     <div class="hero-ctas">
       <a href="#contacto" class="btn btn-primary">Empezá tu proyecto →</a>
@@ -595,6 +896,20 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
       <div class="hstat"><strong>5</strong><span>Herramientas en desarrollo</span></div>
       <div class="hstat"><strong>100%</strong><span>Dedicación al proyecto</span></div>
     </div>
+  </div>
+
+  <!-- Floating cards — hidden on small screens -->
+  <div class="hero-float hfl" aria-hidden="true">
+    <div class="hero-float-tag"><span class="hft-dot"></span>En desarrollo</div>
+    <div class="hero-float-title">TurnerApp</div>
+    <div class="hero-float-sub">Sistema de turnos online<br>para profesionales</div>
+    <div class="hero-float-bar"></div>
+  </div>
+  <div class="hero-float hfr" aria-hidden="true">
+    <div class="hero-float-tag"><span class="hft-dot"></span>Activo</div>
+    <div class="hero-float-title">Sistema Gastronómico</div>
+    <div class="hero-float-sub">POS · Stock · Comandas<br>en tiempo real</div>
+    <div class="hero-float-bar"></div>
   </div>
 
   <div class="scroll-cue" aria-hidden="true">
@@ -615,33 +930,25 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
   <div class="container">
     <div class="head-center center reveal">
       <span class="eyebrow"><span class="dot"></span>¿Qué hacemos?</span>
-      <h2 class="h2">Todo lo que tu negocio<br><span class="grad">necesita para crecer.</span></h2>
-      <p class="sub mx-auto" style="margin-top:.8rem">Desde la identidad visual hasta las herramientas que automatizan tu operación. Trabajamos el negocio entero.</p>
+      <h2 class="h2">No hacemos todo.<br><span class="grad">Hacemos esto muy bien.</span></h2>
+      <p class="sub mx-auto" style="margin-top:.8rem">Branding que impacta, webs que convierten y software que resuelve problemas reales. Sin rodeos, sin genérico.</p>
     </div>
     <div class="bento" style="margin-top:3.5rem">
-      <div class="pillar reveal d1">
-        <div class="ico">🎨</div>
-        <h3>Branding & Identidad</h3>
-        <p>Logo, paleta, tipografía y sistema visual completo para que tu marca sea reconocible e impactante.</p>
-        <a href="#branding" class="more">Ver branding <span>→</span></a>
+      <div class="pillar pillar-img-card reveal d1">
+        <img src="img/Image%201%20jun%202026%2C%2012_29_52%20p.m..png" alt="Branding & Identidad" loading="lazy">
+        <a href="#branding" class="pillar-link" aria-label="Ver Branding & Identidad"></a>
       </div>
-      <div class="pillar reveal d2">
-        <div class="ico">🌐</div>
-        <h3>Desarrollo Web</h3>
-        <p>Landings, one-pages, sitios y tiendas online con diseño profesional, rápidos y optimizados para móvil.</p>
-        <a href="#web" class="more">Ver web <span>→</span></a>
+      <div class="pillar pillar-img-card reveal d2">
+        <img src="img/Image%201%20jun%202026%2C%2012_37_02%20p.m..png" alt="Desarrollo Web" loading="lazy">
+        <a href="#web" class="pillar-link" aria-label="Ver Desarrollo Web"></a>
       </div>
-      <div class="pillar reveal d3">
-        <div class="ico">📱</div>
-        <h3>Redes Sociales</h3>
-        <p>Diseño de contenido, plantillas de marca y estrategia visual para que tus redes comuniquen bien.</p>
-        <a href="#contacto" class="more">Consultar <span>→</span></a>
+      <div class="pillar pillar-img-card reveal d3">
+        <img src="img/servicio-redes.png" alt="Redes Sociales" loading="lazy">
+        <a href="#contacto" class="pillar-link" aria-label="Ver Redes Sociales"></a>
       </div>
-      <div class="pillar reveal d4">
-        <div class="ico">⚙️</div>
-        <h3>Herramientas Digitales</h3>
-        <p>Software propio en desarrollo: sistema de turnos, gestión gastronómica, logística, auditorías y más.</p>
-        <a href="#herramientas" class="more">Ver herramientas <span>→</span></a>
+      <div class="pillar pillar-img-card reveal d4">
+        <img src="img/Image%201%20jun%202026%2C%2012_47_37%20p.m..png" alt="Herramientas Digitales" loading="lazy">
+        <a href="#herramientas" class="pillar-link" aria-label="Ver Herramientas Digitales"></a>
       </div>
     </div>
   </div>
@@ -653,8 +960,8 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
     <div class="web-feature">
       <div class="web-text reveal">
         <span class="eyebrow"><span class="dot"></span>Servicios Web</span>
-        <h2 class="h2">Sitios web que<br><span class="grad">convierten visitas en clientes.</span></h2>
-        <p class="sub" style="margin-top:1rem">Diseñamos y desarrollamos tu presencia digital con foco en resultado: que el que entre, compre, reserve o te contacte.</p>
+        <h2 class="h2">Tu web tiene un trabajo:<br><span class="grad">que el que entre, no se vaya.</span></h2>
+        <p class="sub" style="margin-top:1rem">Si alguien entra a tu sitio y no hace nada, algo está muy mal. Lo arreglamos con diseño que dirige, no que decora.</p>
         <ul class="checklist" style="margin-top:1.8rem">
           <li><span class="ck">✦</span>Diseño personalizado — sin plantillas genéricas</li>
           <li><span class="ck">✦</span>100% responsivo para celular y tablet</li>
@@ -671,38 +978,127 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
 
     <p class="web-types-label reveal">Los 4 tipos de sitios que desarrollamos</p>
     <div class="web-gallery">
-      <div class="web-card reveal d1">
+      <a href="landing-page.html" class="web-card reveal d1">
         <div class="web-card-img"><img src="img/web-landing.png" alt="Landing page" loading="lazy"></div>
         <div class="web-card-body">
           <p class="tag">Landing Page</p>
           <h3>Página de captura</h3>
           <p>Una sola página con foco total en convertir. Ideal para campañas y lanzamientos.</p>
         </div>
-      </div>
-      <div class="web-card reveal d2">
+      </a>
+      <a href="one-page.html" class="web-card reveal d2">
         <div class="web-card-img"><img src="img/web-onepage.png" alt="One Page" loading="lazy"></div>
         <div class="web-card-body">
           <p class="tag">One Page</p>
           <h3>Página completa</h3>
           <p>Toda la información de tu negocio en un sitio fluido, moderno y profesional.</p>
         </div>
-      </div>
-      <div class="web-card reveal d3">
+      </a>
+      <a href="web-site.html" class="web-card reveal d3">
         <div class="web-card-img"><img src="img/web-sitio.png" alt="Sitio Web" loading="lazy"></div>
         <div class="web-card-body">
           <p class="tag">Sitio Web</p>
           <h3>Sitio multipágina</h3>
           <p>Estructura completa con secciones, blog, servicios y contacto. Para negocios consolidados.</p>
         </div>
-      </div>
-      <div class="web-card reveal d4">
+      </a>
+      <a href="tienda-online.html" class="web-card reveal d4">
         <div class="web-card-img"><img src="img/web-tienda.png" alt="Tienda Online" loading="lazy"></div>
         <div class="web-card-body">
           <p class="tag">Tienda Online</p>
           <h3>E-commerce</h3>
           <p>Tu negocio abierto las 24 horas. Catálogo, carrito y pagos integrados desde el día 1.</p>
         </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PORTFOLIO ══════ -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="head-center center reveal" style="margin-bottom:.5rem">
+      <span class="eyebrow"><span class="dot"></span>Herramientas disponibles</span>
+      <h2 class="h2">Software real para potenciar<br><span class="grad">tu emprendimiento.</span></h2>
+      <p class="sub mx-auto" style="margin-top:.8rem">Cada herramienta fue construida para resolver un problema concreto de negocios. Elegí la que necesitás, integrala y empezá a crecer.</p>
+    </div>
+    <div class="portfolio-grid">
+      <a href="turnera.html" class="pcase reveal d1">
+        <div class="pcase-img">
+          <img src="img/ChatGPT%20Image%2029%20may%202026%2C%2007_27_58%20p.m..png" alt="TurnerApp" loading="lazy">
+        </div>
+        <div class="pcase-overlay">
+          <p class="pcase-tag">SaaS · Sistema de turnos</p>
+          <h3 class="pcase-title">TurnerApp</h3>
+          <p class="pcase-desc">Sistema de reservas online para profesionales. Tus clientes reservan solos, vos solo mirás la agenda.</p>
+          <span class="pcase-link">Ver proyecto →</span>
+        </div>
+      </a>
+      <a href="gastronomico.html" class="pcase reveal d2">
+        <div class="pcase-img">
+          <img src="img/Sin título-18.jpg" alt="Sistema Gastronómico" loading="lazy">
+        </div>
+        <div class="pcase-overlay">
+          <p class="pcase-tag">SaaS · Gestión gastronómica</p>
+          <h3 class="pcase-title">Sistema Gastronómico</h3>
+          <p class="pcase-desc">Pedidos, mesas, stock y comandas desde un solo panel. Para restaurantes y bares que necesitan orden real.</p>
+          <span class="pcase-link">Ver proyecto →</span>
+        </div>
+      </a>
+      <a href="Landing%20Bar.html" class="pcase reveal d3">
+        <div class="pcase-img">
+          <img src="img/ChatGPT%20Image%2029%20may%202026%2C%2007_38_16%20p.m..png" alt="Logística Bar" loading="lazy">
+        </div>
+        <div class="pcase-overlay">
+          <p class="pcase-tag">SaaS · Logística de eventos</p>
+          <h3 class="pcase-title">Logística Servicio Bar</h3>
+          <p class="pcase-desc">Coordinación completa para eventos con barra móvil. Inventario, equipo y tiempos bajo control.</p>
+          <span class="pcase-link">Ver proyecto →</span>
+        </div>
+      </a>
+      <a href="trading.html" class="pcase reveal d4">
+        <div class="pcase-img">
+          <img src="img/Sin título-19.jpg" alt="Indicadores Trading" loading="lazy">
+        </div>
+        <div class="pcase-overlay">
+          <p class="pcase-tag">Fintech · Indicadores</p>
+          <h3 class="pcase-title">Indicadores de Trading</h3>
+          <p class="pcase-desc">Señales visuales precisas para traders que quieren decidir más rápido y con menos ruido.</p>
+          <span class="pcase-link">Ver proyecto →</span>
+        </div>
+      </a>
+
+      <!-- Card 5 — Auditorías Digitales -->
+      <a href="auditorias.html" class="pcase reveal d1">
+        <div class="pcase-img">
+          <!-- REEMPLAZAR con imagen real: <img src="img/auditorias-hero.jpg" alt="Auditorías Digitales" loading="lazy"> -->
+          <div class="pcase-bg pcase-bg-audit">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(179,136,255,.35)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" width="72" height="72"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+        <div class="pcase-overlay">
+          <p class="pcase-tag">Consultoría · Análisis digital</p>
+          <h3 class="pcase-title">Auditorías Digitales</h3>
+          <p class="pcase-desc">Diagnóstico completo de tu presencia digital. Web, redes y anuncios bajo la lupa — sabés exactamente dónde perdés plata.</p>
+          <span class="pcase-link">Ver proyecto →</span>
+        </div>
+      </a>
+
+      <!-- Card 6 — Sin nombre / Próximamente -->
+      <div class="pcase reveal d2" style="cursor:default">
+        <div class="pcase-img">
+          <div class="pcase-bg pcase-bg-soon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(139,92,246,.3)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" width="72" height="72"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/><path d="M12 6v2M12 16v2M6 12h2M16 12h2"/></svg>
+          </div>
+        </div>
+        <div class="pcase-coming-badge"><span class="d"></span>Próximamente</div>
+        <div class="pcase-overlay">
+          <p class="pcase-tag">Nuevo proyecto</p>
+          <h3 class="pcase-title">En construcción</h3>
+          <p class="pcase-desc">Algo nuevo viene. Todavía no revelamos de qué se trata — pero va a valer la pena esperar.</p>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -710,11 +1106,11 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
 <!-- ══════ BRANDING ══════ -->
 <section id="branding" class="section">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr .75fr;gap:4rem;align-items:center;margin-bottom:4rem">
+    <div class="brand-top-grid">
       <div class="reveal">
         <span class="eyebrow"><span class="dot"></span>Branding & Identidad Visual</span>
-        <h2 class="h2">Tu marca, diseñada<br><span class="grad">para ser recordada.</span></h2>
-        <p class="sub" style="margin-top:1rem">No es solo un logo. Es el sistema completo que hace que tu negocio inspire confianza antes de que abras la boca — en todos los touchpoints.</p>
+        <h2 class="h2">Un logo no es una marca.<br><span class="grad">Una marca es un sistema.</span></h2>
+        <p class="sub" style="margin-top:1rem">Un brandbook completo, no un PNG suelto. Tu marca tiene que funcionar en Instagram, en una remera y en tu tarjeta — al mismo tiempo.</p>
         <ul class="checklist" style="margin-top:1.8rem">
           <li><span class="ck">✦</span>Briefing estratégico y análisis de competencia</li>
           <li><span class="ck">✦</span>Diseño de logo en todas sus variantes</li>
@@ -725,26 +1121,77 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
         <a href="#contacto" class="btn btn-primary" style="margin-top:.5rem">Quiero mi identidad visual</a>
       </div>
       <div class="reveal d2">
-        <div class="brand-hero-wrap">
-          <img src="img/brandbook.png" alt="Brandbook Identificate" loading="lazy">
-          <div class="brand-hero-caption">
-            <span>Entregable principal</span>
-            Manual de marca completo
+        <div class="brand-stack-scene">
+          <div class="brand-stack-wrap">
+
+            <!-- Carta 3 — fondo -->
+            <div class="brand-stack-card" data-pos="2">
+              <img src="img/Image%2029%20may%202026%2C%2004_29_43%20p.m..png" alt="Proyecto de marca" loading="lazy">
+              <div class="bsc-overlay">
+                <span class="bsc-label">Identidad visual</span>
+                <span class="bsc-name">Proyecto de marca</span>
+              </div>
+            </div>
+
+            <!-- Carta 2 — medio -->
+            <div class="brand-stack-card" data-pos="1">
+              <img src="img/ChatGPT%20Image%2029%20may%202026%2C%2004_41_11%20p.m..png" alt="Proyecto de marca" loading="lazy">
+              <div class="bsc-overlay">
+                <span class="bsc-label">Identidad visual</span>
+                <span class="bsc-name">Proyecto de marca</span>
+              </div>
+            </div>
+
+            <!-- Carta 1 — frente -->
+            <div class="brand-stack-card" data-pos="0">
+              <img src="img/brandbook.png" alt="Identificate" loading="lazy">
+              <div class="bsc-overlay">
+                <span class="bsc-label">Brandbook completo</span>
+                <span class="bsc-name">Identificate</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dots de navegación -->
+          <div class="bsc-dots">
+            <span class="bsc-dot active" data-idx="0"></span>
+            <span class="bsc-dot" data-idx="1"></span>
+            <span class="bsc-dot" data-idx="2"></span>
+          </div>
+          <div class="bsc-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Hacé clic para ver más
           </div>
         </div>
       </div>
     </div>
 
-    <div class="brand-duo reveal">
-      <figure>
-        <img src="img/logo-variantes.png" alt="Variantes de logo" loading="lazy">
-        <figcaption>Variantes del logo</figcaption>
-      </figure>
-      <figure>
-        <img src="img/logo-aplicaciones.png" alt="Aplicaciones del logo" loading="lazy">
-        <figcaption>Aplicaciones en contexto</figcaption>
-      </figure>
+    <!-- ══ MANUAL DE MARCA — separado ══ -->
+    <div class="brand-manual reveal">
+      <div class="bm-left">
+        <div class="bm-eyebrow"><span class="dot"></span>Entrega principal</div>
+        <div class="bm-title">Manual de marca<br>completo</div>
+      </div>
+      <div class="bm-divider"></div>
+      <div class="bm-items">
+        <span>Logo principal</span>
+        <span>Variantes del logo</span>
+        <span>Paleta de colores</span>
+        <span>Colores secundarios</span>
+        <span>Sistema tipográfico</span>
+        <span>Elementos gráficos</span>
+        <span>Iconografía</span>
+        <span>Estilo fotográfico</span>
+        <span>Voz y tono</span>
+        <span>Aplicaciones digitales</span>
+        <span>Aplicaciones impresas</span>
+        <span>Mockups de marca</span>
+        <span>Guía de uso</span>
+        <span>Restricciones de uso</span>
+      </div>
     </div>
+
 
     <div style="margin-top:2.2rem" class="reveal">
       <p style="font-size:.82rem;color:var(--grey);margin-bottom:1.1rem;font-family:var(--ft);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Lo que recibís en cada proyecto de branding:</p>
@@ -757,19 +1204,11 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
   </div>
 </section>
 
-<!-- ══════ HERRAMIENTAS ══════ -->
-<section id="herramientas" class="section" style="background:var(--dark-2)">
-  <div class="container">
-    <div class="lab-header reveal">
-      <span class="eyebrow"><span class="dot"></span>El Laboratorio · 5 proyectos en desarrollo</span>
-      <h2 class="h2" style="margin-top:1.2rem">Herramientas propias para<br><span class="grad">negocios reales.</span></h2>
-    </div>
-    <p class="lab-sub reveal d1">Estamos construyendo software que resuelve problemas concretos. Cada herramienta nace de entender el día a día de negocios como el tuyo.</p>
-
-    <div class="tools-grid">
+<!-- HERRAMIENTAS — eliminada por duplicidad con sección portfolio -->
+<!-- INICIO PLACEHOLDER --><div style="display:none"><div class="tools-grid">
       <div class="tool reveal d1">
         <div class="badge-dev"><span class="d"></span>En desarrollo</div>
-        <div class="t-ico">📅</div>
+        <div class="t-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></div>
         <h3>TurnerApp</h3>
         <p class="pitch">Sistema de turnos online para profesionales y negocios. Tus clientes reservan solos, vos organizás tu agenda.</p>
         <div class="features">
@@ -779,7 +1218,7 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
       </div>
       <div class="tool reveal d2">
         <div class="badge-dev"><span class="d"></span>En desarrollo</div>
-        <div class="t-ico">🍽️</div>
+        <div class="t-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div>
         <h3>Sistema Gastronómico</h3>
         <p class="pitch">Herramienta de gestión completa para restaurantes, bares y cocinas. Pedidos, stock y comandas en uno.</p>
         <div class="features">
@@ -789,19 +1228,19 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
       </div>
       <div class="tool reveal d3">
         <div class="badge-dev"><span class="d"></span>En desarrollo</div>
-        <div class="t-ico">🍸</div>
+        <div class="t-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M8 22h8m-4-8v8M5 2h14l-3 9a4 4 0 0 1-8 0Z"/></svg></div>
         <h3>Logística Servicio Bar</h3>
         <p class="pitch">Coordinación completa de eventos con barra móvil. Inventario, personal y tiempos desde un solo lugar.</p>
         <div class="features">
           <span>Gestión de eventos</span><span>Inventario</span><span>Coordinación de equipo</span>
         </div>
-        <a href="logistica-bar.html" class="tool-cta">Ver más <span>→</span></a>
+        <a href="Landing%20Bar.html" class="tool-cta">Ver más <span>→</span></a>
       </div>
     </div>
     <div class="tools-row2">
       <div class="tool reveal d1">
         <div class="badge-dev"><span class="d"></span>En desarrollo</div>
-        <div class="t-ico">🔍</div>
+        <div class="t-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
         <h3>Auditorías Digitales</h3>
         <p class="pitch">Diagnóstico profesional de tu presencia digital. Web, redes y anuncios analizados para encontrar dónde perdés dinero.</p>
         <div class="features">
@@ -811,7 +1250,7 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
       </div>
       <div class="tool reveal d2">
         <div class="badge-dev"><span class="d"></span>En desarrollo</div>
-        <div class="t-ico">📈</div>
+        <div class="t-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
         <h3>Indicadores de Trading</h3>
         <p class="pitch">Herramientas visuales para traders que necesitan decidir más rápido y con mayor claridad. Señales precisas, menos ruido.</p>
         <div class="features">
@@ -820,8 +1259,7 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
         <a href="trading.html" class="tool-cta">Ver más <span>→</span></a>
       </div>
     </div>
-  </div>
-</section>
+  </div></div><!-- FIN PLACEHOLDER -->
 
 <!-- ══════ PROCESO ══════ -->
 <section id="proceso" class="section">
@@ -832,27 +1270,27 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
     </div>
     <div class="timeline">
       <div class="tstep reveal d1">
-        <div class="tnum">01<div class="emj">💬</div></div>
+        <div class="tnum">01<div class="emj"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div></div>
         <h3>Consulta inicial</h3>
         <p>Entendemos tu negocio, tus objetivos y qué necesitás realmente.</p>
       </div>
       <div class="tstep reveal d2">
-        <div class="tnum">02<div class="emj">🗺️</div></div>
+        <div class="tnum">02<div class="emj"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div></div>
         <h3>Estrategia</h3>
         <p>Definimos el plan, el alcance y los entregables antes de arrancar.</p>
       </div>
       <div class="tstep reveal d3">
-        <div class="tnum">03<div class="emj">✏️</div></div>
+        <div class="tnum">03<div class="emj"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div></div>
         <h3>Diseño</h3>
         <p>Creamos los primeros conceptos y ajustamos hasta que sea perfecto.</p>
       </div>
       <div class="tstep reveal d4">
-        <div class="tnum">04<div class="emj">🚀</div></div>
+        <div class="tnum">04<div class="emj"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div></div>
         <h3>Desarrollo</h3>
         <p>Implementamos el proyecto con calidad y en los plazos acordados.</p>
       </div>
       <div class="tstep reveal d5">
-        <div class="tnum">05<div class="emj">📊</div></div>
+        <div class="tnum">05<div class="emj"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="20 6 9 17 4 12"/></svg></div></div>
         <h3>Entrega y soporte</h3>
         <p>Te acompañamos en el lanzamiento y más allá.</p>
       </div>
@@ -865,23 +1303,67 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
   <div class="container">
     <div class="head-center center reveal" style="margin-bottom:3.5rem">
       <span class="eyebrow"><span class="dot"></span>¿Por qué Identificate?</span>
-      <h2 class="h2">Nos importa que<br><span class="grad">te vaya bien.</span></h2>
+      <h2 class="h2">Trabajamos con vos,<br><span class="grad">no para vos.</span></h2>
     </div>
     <div class="why-grid">
       <div class="why-card reveal d1">
         <div class="why-num">01</div>
-        <h3>Diseño con intención</h3>
-        <p>Cada decisión visual tiene un porqué estratégico. No diseñamos para que sea bonito — diseñamos para que funcione y comunique lo que tu negocio necesita comunicar.</p>
+        <h3>No somos una productora de logos</h3>
+        <p>Cada decisión visual tiene un porqué estratégico. Diseñamos para que funcione y comunique — no para ganar premios de diseño que no te sirven para nada.</p>
       </div>
       <div class="why-card reveal d2">
         <div class="why-num">02</div>
-        <h3>Acompañamiento real</h3>
-        <p>No desaparecemos después de la entrega. Estamos disponibles, explicamos cada paso y nos aseguramos de que entiendas lo que tenés en la mano.</p>
+        <h3>Estamos antes, durante y después</h3>
+        <p>No desaparecemos después de mandar el ZIP. Te acompañamos en el lanzamiento y cuando algo se rompe a las 11 PM. Persona a persona, siempre.</p>
       </div>
       <div class="why-card reveal d3">
         <div class="why-num">03</div>
-        <h3>Una sola fuente de soluciones</h3>
-        <p>Branding, web y herramientas digitales en un solo lugar, con coherencia visual garantizada. Sin coordinar proveedores distintos ni perder tiempo en la comunicación.</p>
+        <h3>Todo en un lugar, con coherencia</h3>
+        <p>Branding, web y software desde el mismo equipo. Sin coordinar tres proveedores que no hablan entre sí ni perder semanas en el teléfono roto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════ TESTIMONIOS ══════ -->
+<section id="testimonios" class="section" style="background:var(--dark-2)">
+  <div class="container">
+    <div class="head-center center reveal" style="margin-bottom:.5rem">
+      <span class="eyebrow"><span class="dot"></span>Lo que dicen</span>
+      <h2 class="h2">Los primeros<br><span class="grad">ya lo vivieron.</span></h2>
+    </div>
+    <!-- ⚠️ REEMPLAZAR con testimonios reales — mantener el formato de las tarjetas -->
+    <div class="testi-grid">
+      <div class="testi reveal d1">
+        <p>"Antes tenía un logo que hice yo solo en Canva. Ahora tengo una marca real. La diferencia la noté desde el primer día con los clientes."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MG</div>
+          <div class="testi-info">
+            <strong>Martín G.</strong>
+            <span>Barbería · Buenos Aires</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi reveal d2">
+        <p>"Teníamos una web vieja que nadie miraba. La nueva la armaron en dos semanas y ya tuvimos consultas desde el primer mes."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SR</div>
+          <div class="testi-info">
+            <strong>Sofía R.</strong>
+            <span>Centro de fitness · GBA</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi reveal d3">
+        <p>"Lo mejor fue que me explicaron todo. No me mandaron un ZIP y chau — me enseñaron a usar mi propia identidad de marca."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">CM</div>
+          <div class="testi-info">
+            <strong>Carlos M.</strong>
+            <span>Restaurante · CABA</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -962,28 +1444,28 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
     <div class="contact-layout">
       <div class="channels reveal">
         <a href="https://wa.me/5491112345678" target="_blank" rel="noopener" class="channel">
-          <div class="ci">💬</div>
+          <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
           <div>
             <h4>WhatsApp</h4>
             <p>El canal más rápido. Respondemos en el día.</p>
           </div>
         </a>
         <a href="https://instagram.com/identificate" target="_blank" rel="noopener" class="channel">
-          <div class="ci">📸</div>
+          <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div>
           <div>
             <h4>Instagram</h4>
             <p>Seguinos para ver proyectos y novedades.</p>
           </div>
         </a>
         <a href="mailto:hola@identificate.com.ar" class="channel">
-          <div class="ci">📩</div>
+          <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
           <div>
             <h4>Email</h4>
             <p>hola@identificate.com.ar</p>
           </div>
         </a>
         <div class="channel" style="cursor:default">
-          <div class="ci">📍</div>
+          <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div>
             <h4>Ubicación</h4>
             <p>Buenos Aires, Argentina · Trabajo remoto disponible</p>
@@ -1028,8 +1510,8 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
 <!-- ══════ CIERRE ══════ -->
 <section id="cierre">
   <div class="inner reveal">
-    <h2>Tu negocio merece una<br>presencia que lo represente.</h2>
-    <p>Llevamos tu marca al próximo nivel — branding, web y herramientas digitales en un solo lugar.</p>
+    <h2>¿Todavía sin presencia<br>digital que te represente?</h2>
+    <p>Cada día que pasa sin una marca seria es un cliente que se va a la competencia. Hablemos hoy.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
       <a href="#contacto" class="btn btn-dark">Empezá tu proyecto →</a>
       <a href="#planes" class="btn" style="background:rgba(255,255,255,.15);color:var(--dark);border:1px solid rgba(15,15,23,.2)">Ver planes</a>
@@ -1054,12 +1536,14 @@ footer{background:var(--dark-4);border-top:1px solid var(--lila-dim);padding:4.5
         <a href="#web">Desarrollo Web</a>
         <a href="#servicios">Redes Sociales</a>
         <a href="#herramientas">Herramientas</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#equipo">Equipo</a>
       </div>
       <div class="foot-col">
         <h4>Herramientas</h4>
         <a href="turnera.html">TurnerApp</a>
         <a href="gastronomico.html">Sistema Gastronómico</a>
-        <a href="logistica-bar.html">Logística Bar</a>
+        <a href="Landing%20Bar.html">Logística Bar</a>
         <a href="auditorias.html">Auditorías Digitales</a>
         <a href="trading.html">Indicadores Trading</a>
       </div>
@@ -1141,6 +1625,110 @@ document.getElementById('contactForm').addEventListener('submit',function(e){
   if(servicio) txt+=` Estoy interesado/a en: ${servicio}.`;
   if(mensaje) txt+=` ${mensaje}`;
   window.open(`https://wa.me/${WSP}?text=${encodeURIComponent(txt)}`,'_blank');
+});
+
+/* ── CURSOR GLOW ── */
+const glow=document.createElement('div');
+glow.className='cursor-glow';
+document.body.appendChild(glow);
+let glowX=window.innerWidth/2,glowY=window.innerHeight/2,targetX=glowX,targetY=glowY;
+document.addEventListener('mousemove',e=>{targetX=e.clientX;targetY=e.clientY},{passive:true});
+(function animGlow(){
+  glowX+=(targetX-glowX)*.10;
+  glowY+=(targetY-glowY)*.10;
+  glow.style.left=glowX+'px';
+  glow.style.top=glowY+'px';
+  requestAnimationFrame(animGlow);
+})();
+
+/* ── MAGNETIC BUTTONS ── */
+document.querySelectorAll('.btn-primary,.btn-outline').forEach(btn=>{
+  btn.addEventListener('mousemove',function(e){
+    const r=this.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*.2;
+    const y=(e.clientY-r.top-r.height/2)*.2;
+    this.style.transform=`translateY(-3px) translate(${x}px,${y}px)`;
+  });
+  btn.addEventListener('mouseleave',function(){
+    this.style.transform='';
+  });
+});
+
+/* ── BRAND STACK CAROUSEL ── */
+(function(){
+  const cards=[...document.querySelectorAll('.brand-stack-card')];
+  const dots=[...document.querySelectorAll('.bsc-dot')];
+  if(!cards.length) return;
+
+  // positions[i] = qué data-pos tiene la carta i
+  let pos=[0,1,2]; // card 0→front, card 1→mid, card 2→back
+  let locked=false;
+
+  function updateDots(){
+    const frontIdx=pos.indexOf(0);
+    dots.forEach((d,i)=>d.classList.toggle('active',i===frontIdx));
+  }
+
+  function applyPos(enteringCard){
+    pos.forEach((p,i)=>{
+      cards[i].setAttribute('data-pos',p);
+    });
+    if(enteringCard!==undefined){
+      cards[enteringCard].classList.remove('bsc-entering');
+      void cards[enteringCard].offsetWidth; // reflow
+      cards[enteringCard].classList.add('bsc-entering');
+      setTimeout(()=>cards[enteringCard].classList.remove('bsc-entering'),700);
+    }
+    updateDots();
+  }
+
+  function cycle(){
+    if(locked) return;
+    locked=true;
+    // la carta que estaba atrás (pos=2) pasa al frente (pos=0)
+    const incoming=pos.indexOf(2);
+    pos=pos.map(p=>p===2?0:p+1); // 0→1, 1→2, 2→0
+    applyPos(incoming);
+    setTimeout(()=>{locked=false},700);
+  }
+
+  // click en cualquier carta cicla
+  cards.forEach(c=>c.addEventListener('click',cycle));
+
+  // click en dots cicla hasta que quede esa carta al frente
+  dots.forEach((d,i)=>d.addEventListener('click',()=>{
+    const clicks=((3-pos[i])%3); // cuántas veces hay que ciclar
+    let n=0;
+    function step(){
+      if(n>=clicks) return;
+      n++;
+      cycle();
+      setTimeout(step,720);
+    }
+    step();
+  }));
+
+  // auto-ciclo
+  let timer=setInterval(cycle,4200);
+  const scene=document.querySelector('.brand-stack-scene');
+  if(scene){
+    scene.addEventListener('mouseenter',()=>clearInterval(timer));
+    scene.addEventListener('mouseleave',()=>{timer=setInterval(cycle,4200)});
+  }
+})();
+
+/* ── TILT EN CARDS DE PORTFOLIO ── */
+document.querySelectorAll('.pcase').forEach(card=>{
+  card.addEventListener('mousemove',function(e){
+    const r=this.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    this.style.transform=`translateY(-10px) rotateX(${-y*6}deg) rotateY(${x*6}deg)`;
+    this.style.transformStyle='preserve-3d';
+  });
+  card.addEventListener('mouseleave',function(){
+    this.style.transform='';
+  });
 });
 </script>
 </body>
